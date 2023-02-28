@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# Paso 1: Obtener datos de la API de Googlemaps
+# 
+# Creamos un pipeline en python que debe ejecutarse manualmente a medida que se solicita un nuevo estudio.
+# 
+# En este pipeline, consultamos la API de Google Maps a través de la latitud y la longitud de cada tienda, para devolver un Json con todos los datos disponibles dos negocios dentro de un radio de 2 km de una tienda de Subway.
+# 
+# Usamos la Keyword "BUSINESS" porque creemos que comprender los tipos de negocios alrededor de las tiendas Subway puede brindarnos información valiosa sobre los perfiles de los clientes.
+# 
+# Después de extraer los datos, nuestra función ya normaliza los datos en Json y nos entrega un dataframe.
+# 
+# El dataframe final se almacenará dentro de nuestro Bucket "etl_raw_data" dentro de una carpeta con la fecha de extracción. Esto nos permite actualizar el estudio sin sobrescribir los datos ya extraídos.
+
 # In[ ]:
 
 
@@ -31,7 +43,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="etl-project-370513-***********.jso
 
 df = pd.read_csv('gs://provided-table/subway.csv')
 
-#hicimos el subset para una prueba de concepto y despues ejecutamos para todo, devido al uso de la version gratuita de la API de google
+#hicimos el subset para una prueba de concepto y despues ejecutamos para todo, debido al uso de la version gratuita de la API de google
 df_sample1 = df[df["city"]=="Alexandria"]
 df_sample1.to_csv('df_sample1.csv', index = False)
 
